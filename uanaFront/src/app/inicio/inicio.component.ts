@@ -23,7 +23,7 @@ export class InicioComponent implements OnInit {
   idTema: number
 
   user: Usuario = new Usuario()
-  idUser = environment.id
+  idUser :number
 
   constructor(
     private router: Router,
@@ -33,7 +33,7 @@ export class InicioComponent implements OnInit {
   ) { }
 
   ngOnInit(){
-
+   
     if(environment.token == ''){
       alert('Sua sessão expirou. Faça o login novamente')
       this.router.navigate(['/Home'])
@@ -42,6 +42,7 @@ export class InicioComponent implements OnInit {
     this.getAllTemas()
     // this.getAllPostagens()
     this.findAllPostagens()
+    this.idUser= environment.id
   }
 
   getAllTemas(){
@@ -74,9 +75,10 @@ export class InicioComponent implements OnInit {
   }
 
   findByIdUser(){
-    this.authService.getByIdUser(this.idUser).subscribe((resp: Usuario)=>{
-      this.user = resp
-    })
+    this.idUser= environment.id
+    this.listaPostagens =[]
+    this.findAllPostagens()
+   
   }
 
   publicar(){
